@@ -3,10 +3,13 @@ import Router from 'vue-router';
 
 import LoginPage from './components/LoginPage.vue';
 import RegisterForm from './components/RegistrationForm.vue';
+import EmailVerify from './components/EmailVerify.vue';
 import HomePage from './components/HomePage.vue';
 import InsertPage from './components/InsertPage.vue';
 import EditPage from './components/EditPage.vue';
+import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword.vue';
+
 
 Vue.use(Router);
 
@@ -22,6 +25,12 @@ export default new Router({
             path: '/register',
             name: 'register',
             component: RegisterForm
+        },
+
+        {
+            path: '/emailverify',
+            name: 'emailverify',
+            component: EmailVerify
         },
 
         {
@@ -49,10 +58,18 @@ export default new Router({
         },
 
         {
+            path: '/forgotpassword',
+            name: 'forgotpassword',
+            component: ForgotPassword
+        },
+
+        {
             path: '/reset',
             name: 'reset',
             component: ResetPassword
         }
+
+        
         
     ]
 })

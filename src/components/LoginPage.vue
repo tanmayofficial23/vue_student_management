@@ -22,7 +22,7 @@
 
         <button @click="loginButton">Login</button>
         <br/><br/>
-        <a href="" @click="resetPassword()" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue">Forgot Password?</a>
+        <a href="#" @click.prevent="forgotPassword()" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue">Forgot Password?</a>
         
 
         
@@ -40,6 +40,9 @@ export default {
 
     data() {
         return {
+
+            previousUrl: '',
+
             loginCredentials: {
                 emailId: '',
                 password: ''
@@ -52,7 +55,12 @@ export default {
         }
     },
 
+    beforeCreate() {
+        this.previousUrl = document.referrer;
+    },
+
     created() {
+
         if(localStorage.getItem('userToken'))
         {
             localStorage.removeItem('userToken');
@@ -60,6 +68,7 @@ export default {
     },
 
     methods: {
+
         loginButton() {
 
             let that = this;
@@ -97,6 +106,7 @@ export default {
                 let token = response.data.token;
 
                 localStorage.setItem('userToken', token);
+
                 that.$router.push({name: 'home'});
 
             })
@@ -104,7 +114,9 @@ export default {
 
                 if(error.response.status === 401)
                 {
-                    alert(error.response.data.data);
+                    alert(error.response.data.data["msg1"]);
+                    alert(error.response.data.data["msg2"]);
+
                     return;
                 }
 
@@ -132,8 +144,8 @@ export default {
             this.$router.push({name: 'register'});
         },
 
-        resetPassword() {
-            this.$router.push({ name: 'reset' });
+        forgotPassword() {
+            this.$router.push({ name: 'forgotpassword' });
         }
     }
     

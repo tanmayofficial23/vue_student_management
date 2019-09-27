@@ -45,10 +45,12 @@ export default {
     data() {
 
         return  {
+            
             newUserDetails: {
-            name: '',
-            password: '',
-            emailId: ''
+                baseUrl: '',
+                name: '',
+                password: '',
+                emailId: ''
             },
 
             formError: {
@@ -97,44 +99,59 @@ export default {
                 return;
             }
 
+            this.newUserDetails.baseUrl = window.location.origin;
+
             axios({
                 method: 'post',
                 url: 'http://127.0.0.1:8000/api/register',
                 data: that.newUserDetails
             })
-            .then(function(response){
-                let token = response.data.token;
-                localStorage.setItem('userToken',token);
-                that.$router.push({name: 'home'});
+            .then(function(response) {
+                
+                alert(response.data.data);
+                
+                that.$router.push({name: 'login'});
 
             })
-            .catch(function(error){
-                
-                if(error.response.data.data[0]["name"])
+            .catch(function(error) {
+
+                if(error.response.status === 409)
                 {
-                    that.formError.nameError = error.response.data.data[0]["name"][0];
-                }
-                else
-                {
-                    that.formError.nameError = '';
+                    alert(error.response.data["msg"]);
+                    
+                    that.$router.push({ name: 'login' });
+
+                    return;
                 }
 
-                if(error.response.data.data[0]["emailId"])
+                if(error.response.status === 400)
                 {
-                    that.formError.emailIdError = error.response.data.data[0]["emailId"][0];
-                }
-                else
-                {
-                    that.formError.emailIdError = '';
-                }
-                
-                if(error.response.data.data[0]["password"])
-                {
-                    that.formError.passwordError = error.response.data.data[0]["password"][0];
-                }
-                else
-                {
-                    that.formError.passwordError = '';
+                    if(error.response.data.data[0]["name"])
+                    {
+                        that.formError.nameError = error.response.data.data[0]["name"][0];
+                    }
+                    else
+                    {
+                        that.formError.nameError = '';
+                    }
+
+                    if(error.response.data.data[0]["emailId"])
+                    {
+                        that.formError.emailIdError = error.response.data.data[0]["emailId"][0];
+                    }
+                    else
+                    {
+                        that.formError.emailIdError = '';
+                    }
+                    
+                    if(error.response.data.data[0]["password"])
+                    {
+                        that.formError.passwordError = error.response.data.data[0]["password"][0];
+                    }
+                    else
+                    {
+                        that.formError.passwordError = '';
+                    }
                 }
             })
         

@@ -4,7 +4,7 @@
 
         <h2 style="display:inline-block">Students Details</h2>
 
-        <a href="" @click="logout()" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; float:right; width:50px; text-align:right; display:inline-block">Logout</a>
+        <a href="#" @click.prevent="logoutUser()" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; float:right; width:50px; text-align:right; display:inline-block">Logout</a>
 
         <table class="table">
 
@@ -20,8 +20,8 @@
 
                 <td v-for="detail in student" :key="detail">{{ detail }}</td>
 
-                <td><a href="" @click="editStudent(student)" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; margin-right:10px; margin-left:10px">Edit</a></td>
-                <td><a href="" @click="deleteStudent(student)" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; margin-right:10px; margin-left:10px">Delete</a></td>
+                <td><a href="#" @click.prevent="editStudent(student)" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; margin-right:10px; margin-left:10px">Edit</a></td>
+                <td><a href="#" @click.prevent="deleteStudent(student)" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; margin-right:10px; margin-left:10px">Delete</a></td>
 
             </tr>
 
@@ -96,6 +96,9 @@ export default {
 
         editStudent(studentDetails) {
 
+            console.log('studentDetails');
+            // return;
+            
             let that = this;
             let token = localStorage.getItem('userToken');
             
@@ -151,8 +154,8 @@ export default {
             })
         },
 
-        logout() {
-            
+        logoutUser() {
+
             let that = this;
             let token = localStorage.getItem('userToken');
 

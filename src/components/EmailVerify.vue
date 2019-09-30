@@ -1,6 +1,10 @@
 <template>
     
     <div id="verify">
+
+        <h2>Your email is verified.</h2>
+
+        <button @click="redirectLogin">Go to Login</button>
         
     </div>
 
@@ -14,15 +18,12 @@ export default {
     
     data() {
         return {
-
-            emailId: '',
             token: ''
         }
     },
 
     created() {
 
-        this.emailId = this.$route.query.emailId;
         this.token = this.$route.query.token;
 
         let that = this;
@@ -31,19 +32,23 @@ export default {
             method: 'post',
             url: 'http://127.0.0.1:8000/api/verify',
             data: {
-                'emailId': this.emailId,
                 'token': this.token
             }
         })
         .then(function(response){
+            console.log(response);
             
             alert(response.data.data);
-
-            that.$router.push({ name: 'login'});
         })
         .catch(function(error){
             console.log(error.response);
         })
+    },
+
+    methods: {
+        redirectLogin() {
+            this.$router.push({ name: 'login'});
+        }
     }
 }
 </script>

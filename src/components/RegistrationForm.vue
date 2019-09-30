@@ -47,7 +47,6 @@ export default {
         return  {
             
             newUserDetails: {
-                baseUrl: '',
                 name: '',
                 password: '',
                 emailId: ''
@@ -99,8 +98,6 @@ export default {
                 return;
             }
 
-            this.newUserDetails.baseUrl = window.location.origin;
-
             axios({
                 method: 'post',
                 url: 'http://127.0.0.1:8000/api/register',
@@ -115,7 +112,7 @@ export default {
             })
             .catch(function(error) {
 
-                if(error.response.status === 409)
+                if(error.response.status === 401)
                 {
                     alert(error.response.data["msg"]);
                     
@@ -124,7 +121,7 @@ export default {
                     return;
                 }
 
-                if(error.response.status === 400)
+                if(error.response.status === 422)
                 {
                     if(error.response.data.data[0]["name"])
                     {

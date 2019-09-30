@@ -97,20 +97,16 @@ export default {
 
             let that = this;
 
-            this.emailId = this.$route.query.emailId;
             this.token = this.$route.query.token;
 
-            // console.log('Email ID: ', this.emailId);
-            // console.log('Token: ', this.token);
-            // console.log('password', this.password);
+            console.log(this.token);
 
             axios({
                 method: 'post',
                 url: 'http://127.0.0.1:8000/api/setnewpass',
                 data: {
-                    'emailId': that.emailId,
-                    'token': that.token,
-                    'password': that.formData.password
+                    'token': this.token,
+                    'password': this.formData.password
                 }
             })
             .then(function(response){
@@ -121,11 +117,6 @@ export default {
                 
                 console.log(error.response);
 
-                if(error.response.status === 409)
-                {
-                    alert(error.response.data.error);
-                    return;
-                }
                 if(error.response.status === 401)
                 {
                     alert(error.response.data.error);

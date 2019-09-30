@@ -153,16 +153,18 @@ export default {
 
             axios({
                 method: 'post',
-                url: 'http://127.0.0.1:8000/api/edit',
+                url: 'http://127.0.0.1:8000/api/students/edit',
                 headers:{ 'Authorization': `Bearer ${token}`},
                 data: that.userDetails
             })
             .then(function(response){
+
                 alert('Record Updated!!!');
 
                 that.$router.push({ name: 'home' })
             })
             .catch(function(error){
+
                 if(error.response.data.data[0]["name"])
                 {
                     that.formError.nameError = error.response.data.data[0]["name"][0];

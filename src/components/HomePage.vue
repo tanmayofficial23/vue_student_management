@@ -66,7 +66,7 @@ export default {
 
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/api/show',
+            url: 'http://127.0.0.1:8000/api/students/index',
             headers: { 'Authorization': `Bearer ${token}`}
         })
         .then(function(response){
@@ -96,9 +96,6 @@ export default {
 
         editStudent(studentDetails) {
 
-            console.log('studentDetails');
-            // return;
-            
             let that = this;
             let token = localStorage.getItem('userToken');
             
@@ -114,7 +111,7 @@ export default {
 
             axios({
                 method: 'get',
-                url: 'http://127.0.0.1:8000/api/edit/'+id,
+                url: 'http://127.0.0.1:8000/api/students/'+id,
                 headers:{ 'Authorization': `Bearer ${token}`}
             })
             .then(function(response){
@@ -144,7 +141,7 @@ export default {
 
             axios({
                 method: 'get',
-                url: 'http://127.0.0.1:8000/api/delete/'+id,
+                url: 'http://127.0.0.1:8000/api/students/delete/'+id,
                 headers:{ 'Authorization': `Bearer ${token}`}
             })
             .then(function(response){
@@ -175,10 +172,6 @@ export default {
             .catch(function(error){
                 alert(error.response);
             })
-            
-            // localStorage.setItem('userToken', '');
-
-            // this.$router.push({ name: 'login' });
         }
     }
 

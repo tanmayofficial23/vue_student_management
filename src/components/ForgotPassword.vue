@@ -2,8 +2,11 @@
     
     <div id="forgotpassword">
         
-        <h2>Email Verification</h2>
+        <h2 style="display:inline-block; left-padding:50px">Email Verification</h2>
 
+        <a href="" @click="loginRedirect()" style="font-size:12px; font-family:sans-serif; font-weight:bold; color:blue; text-align:right; float:right; display:inline-block">Go back to Login!</a>
+        <br/><br/>
+        
         Email ID: <input type="email" id="emailId" v-model="emailId"><br/>
 
         <div id="emailIdError" v-if="emailIdError !== ''">
@@ -27,12 +30,15 @@ export default {
         return {
 
             emailId: '',
-            emailIdError: '',
-            baseUrl: ''
+            emailIdError: ''
         }
     },
 
     methods: {
+
+        loginRedirect() {
+            this.$router.push({ name: 'login' });
+        },
 
         generateResetLink() {
             
@@ -45,18 +51,14 @@ export default {
 
             let that = this;
 
-            this.baseUrl = window.location.origin;
-
             axios({
                 method: 'post',
                 url: 'http://127.0.0.1:8000/api/resetmail',
                 data: { 
                     'emailId': this.emailId ,
-                    'baseUrl': this.baseUrl
                 }
             })
             .then(function(response){
-                console.log(response);
                 
                 alert(response.data.msg);
                 that.$router.push({ name: 'login' });

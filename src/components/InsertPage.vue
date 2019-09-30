@@ -138,7 +138,7 @@ export default {
 
             axios({
                 method: 'post',
-                url: 'http://127.0.0.1:8000/api/new',
+                url: 'http://127.0.0.1:8000/api/students/create',
                 data: that.studentDetails,
                 headers:{ 'Authorization': `Bearer ${token}`}
             })
@@ -146,6 +146,7 @@ export default {
                 that.$router.push({ name: 'home' });
             })
             .catch(function(error){
+
                 if(error.response.data.data[0]["name"])
                 {
                     that.formError.nameError = error.response.data.data[0]["name"][0];
